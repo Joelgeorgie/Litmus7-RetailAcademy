@@ -3,9 +3,9 @@ package com.litmus7.school.dto;
 import java.util.Scanner;
 
 public class Student {
-	String name ;
-	int rollNumber;
-	double marks[] = new double[5];
+	private String name ;
+	private int rollNumber;
+	private double marks[] = new double[5];
 	
 	public void inputDetails() {
 		Scanner sc = new Scanner(System.in);
