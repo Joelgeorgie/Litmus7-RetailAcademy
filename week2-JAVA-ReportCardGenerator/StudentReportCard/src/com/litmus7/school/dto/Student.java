@@ -8,17 +8,17 @@ public class Student {
 	private double marks[] = new double[5];
 	
 	public void inputDetails() {
-		Scanner sc = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter student name: ");
-		name = sc.nextLine();
+		name = scanner.nextLine();
 		
 		System.out.print("Enter roll number: ");
-		rollNumber = sc.nextInt();
+		rollNumber = scanner.nextInt();
 		
 		System.out.println("Enter marks in 5 subjects:");
 		for(int i = 0 ; i<5 ; i++ ) {
 			System.out.print("Subject "+(i+1)+": ");
-			marks[i]=sc.nextDouble();
+			marks[i]=scanner.nextDouble();
 		}
 		System.out.println();
 	}	
