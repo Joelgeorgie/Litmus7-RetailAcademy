@@ -1,0 +1,39 @@
+Enter the number of students: 2
+Enter details of Student 1
+Enter student name: Joel Varghese Georgie
+Enter roll number: 205
+Enter marks in 5 subjects:
+Subject 1: 91
+Subject 2: 89
+Subject 3: 86
+Subject 4: 97
+Subject 5: 93
+
+Enter details of Student 2
+Enter student name: Donald T.
+Enter roll number: 372
+Enter marks in 5 subjects:
+Subject 1: 55
+Subject 2: 68
+Subject 3: 52
+Subject 4: 59
+Subject 5: 63
+
+
+Printing the Report Cards:
+
+--- Report Card ---
+Name : Joel Varghese Georgie
+Roll Number : 205
+Total Marks : 456.0
+Average Marks : 91.2
+Grade : A
+-------------------
+
+--- Report Card ---
+Name : Donald T.
+Roll Number : 372
+Total Marks : 297.0
+Average Marks : 59.4
+Grade : D
+-------------------
