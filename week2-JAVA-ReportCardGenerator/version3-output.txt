@@ -1,0 +1,21 @@
+Enter the number of students: 1
+Enter details of Student 1
+Enter student name: Joel Varghese Georgie
+Enter roll number: 29
+Enter marks in 5 subjects:
+Subject 1: 89
+Subject 2: 85
+Subject 3: 87
+Subject 4: 83
+Subject 5: 84
+
+
+Printing the Report Cards:
+
+--- Report Card ---
+Name : Joel Varghese Georgie
+Roll Number : 29
+Total Marks : 428.0
+Average Marks : 85.6
+Grade : B (Good)
+-------------------
