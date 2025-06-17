@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"com.litmus7.school","c":"StudentApp","l":"main(String[])","u":"main(java.lang.String[])"},{"p":"com.litmus7.school","c":"StudentApp","l":"StudentApp()","u":"%3Cinit%3E()"}];updateSearchResults();
