@@ -1,0 +1,52 @@
+--- Displaying Default Car Details ---
+Brand: Honda
+Model: Civic
+Rental Price/Day: 1400.0
+Number of Doors: 4
+Automatic: false
+--- Displaying Default Bike Details ---
+Brand: Suzuki
+Model: Gixxer
+Rental Price/Day: 600.0
+Has Gear:  false
+Engine Capacity:  125 cc
+
+--- Enter Car Details ---
+Enter brand: Maruti
+Enter model: 800
+Enter rental price per day: 2000
+Enter number of doors:  4
+Is it automatic (true/false)? false
+--- Displaying Car Details (Interactive) ---
+Brand: Maruti
+Model: 800
+Rental Price/Day: 2000.0
+Number of Doors: 4
+Automatic: false
+
+--- Enter Bike Details ---
+Enter brand: Pulsar
+Enter model: 900
+Enter rental price per day: 300
+Does it have gears (true/false)?  true
+Enter engine capacity (cc): 200
+--- Displaying Bike Details (Interactive) ---
+Brand: Pulsar
+Model: 900
+Rental Price/Day: 300.0
+Has Gear:  true
+Engine Capacity:  200 cc
+
+--- Displaying Car Details (Parameterized)  ---
+Brand: Tesla
+Model: Model S
+Rental Price/Day: 10000.0
+Number of Doors: 4
+Automatic: true
+
+--- Displaying Bike Details (Parameterized) ---
+Brand: Royal Enfield
+Model: Classic360
+Rental Price/Day: 3000.0
+Has Gear:  true
+Engine Capacity:  350 cc
