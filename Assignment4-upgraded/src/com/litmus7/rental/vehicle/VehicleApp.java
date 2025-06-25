@@ -1,5 +1,7 @@
 package com.litmus7.rental.vehicle;
 
+import com.litmus7.rental.vehicle.service.VehicleService;
+
 /**
  * The {@code VehicleApp} class serves as the entry point for the Vehicle Rental System.
  * <p>

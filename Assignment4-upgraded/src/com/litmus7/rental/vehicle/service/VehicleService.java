@@ -1,4 +1,4 @@
-package com.litmus7.rental.vehicle;
+package com.litmus7.rental.vehicle.service;
 
 import com.litmus7.rental.vehicle.dto.*;
 
