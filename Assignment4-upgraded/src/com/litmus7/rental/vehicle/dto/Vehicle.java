@@ -82,33 +82,7 @@ public class Vehicle {
 
     // ------------------- Methods -------------------
 
-    /**
-     * Prompts the user to input details for the vehicle using a {@code Scanner}.
-     */
-    public void inputDetails() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter brand: ");
-        this.brand = scanner.nextLine();
-
-        System.out.print("Enter model: ");
-        this.model = scanner.nextLine();
-
-        System.out.print("Enter rental price per day: ");
-        this.rentalPricePerDay = scanner.nextDouble();
-
-        
-    }
-
-    /**
-     * Displays the vehicle's brand, model, and rental price per day.
-     */
-    public void displayDetails() {
-        System.out.println("Brand: " + brand);
-        System.out.println("Model: " + model);
-        System.out.println("Rental Price/Day: " + rentalPricePerDay);
-    }
-
+    
     /**
      * Returns a string representation of the vehicle.
      *

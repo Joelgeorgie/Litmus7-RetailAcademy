@@ -1,68 +1,61 @@
 Loading vehicles from file: vehicles.txt
+✅ Vehicles loaded successfully.
 
----- List of Vehicles ----
+---- List of All Vehicles ----
 Car [brand=Toyota, model=Corolla, rentalPricePerDay=45.5, numberOfDoors=4, isAutomatic=true]
 Bike [brand=Yamaha, model=R15, rentalPricePerDay=30.0, hasGear=true, engineCapacity=150]
 Car [brand=Ford, model=Focus, rentalPricePerDay=50.0, numberOfDoors=5, isAutomatic=false]
 Bike [brand=Honda, model=CBR, rentalPricePerDay=35.5, hasGear=false, engineCapacity=250]
 Car [brand=Chevrolet, model=Malibu, rentalPricePerDay=55.0, numberOfDoors=4, isAutomatic=true]
 Bike [brand=Suzuki, model=GSX, rentalPricePerDay=40.0, hasGear=true, engineCapacity=200]
----------------------------------------------------------------------------
 
-Enter the type of vehicle (Car/Bike): car
-Enter brand: Tesla
-Enter model: 3
-Enter rental price per day: 150
-Enter number of doors: 4
-Is it automatic (true/false)? true
+Adding new vehicle: Car [brand=Nissan, model=Altima, rentalPricePerDay=55.0, numberOfDoors=4, isAutomatic=true]
+✅ Vehicle added successfully.
 
----- List of Vehicles ----
+---- Updated Vehicle List ----
 Car [brand=Toyota, model=Corolla, rentalPricePerDay=45.5, numberOfDoors=4, isAutomatic=true]
 Bike [brand=Yamaha, model=R15, rentalPricePerDay=30.0, hasGear=true, engineCapacity=150]
 Car [brand=Ford, model=Focus, rentalPricePerDay=50.0, numberOfDoors=5, isAutomatic=false]
 Bike [brand=Honda, model=CBR, rentalPricePerDay=35.5, hasGear=false, engineCapacity=250]
 Car [brand=Chevrolet, model=Malibu, rentalPricePerDay=55.0, numberOfDoors=4, isAutomatic=true]
 Bike [brand=Suzuki, model=GSX, rentalPricePerDay=40.0, hasGear=true, engineCapacity=200]
-Car [brand=Tesla, model=3, rentalPricePerDay=150.0, numberOfDoors=4, isAutomatic=true]
----------------------------------------------------------------------------
+Car [brand=Nissan, model=Altima, rentalPricePerDay=55.0, numberOfDoors=4, isAutomatic=true]
 
-Searching vehicles using the search parameter: Honda
+Searching vehicles with query: Honda
 Bike [brand=Honda, model=CBR, rentalPricePerDay=35.5, hasGear=false, engineCapacity=250]
---- Search Results Above ---
 
-Total Rental Price for all the vehicles: 406.0
+Total rental price of all vehicles:
+Total Price: $311.0
 
-
----- List of Available Vehicles ----
+---- Available Vehicles ----
 Car [brand=Toyota, model=Corolla, rentalPricePerDay=45.5, numberOfDoors=4, isAutomatic=true]
 Bike [brand=Yamaha, model=R15, rentalPricePerDay=30.0, hasGear=true, engineCapacity=150]
 Car [brand=Ford, model=Focus, rentalPricePerDay=50.0, numberOfDoors=5, isAutomatic=false]
 Bike [brand=Honda, model=CBR, rentalPricePerDay=35.5, hasGear=false, engineCapacity=250]
 Car [brand=Chevrolet, model=Malibu, rentalPricePerDay=55.0, numberOfDoors=4, isAutomatic=true]
 Bike [brand=Suzuki, model=GSX, rentalPricePerDay=40.0, hasGear=true, engineCapacity=200]
-Car [brand=Tesla, model=3, rentalPricePerDay=150.0, numberOfDoors=4, isAutomatic=true]
----------------------------------------------------------------------------
+Car [brand=Nissan, model=Altima, rentalPricePerDay=55.0, numberOfDoors=4, isAutomatic=true]
 
 --- Renting Vehicles ---
-The vehicle has been allotted: Bike [brand=Yamaha, model=R15, rentalPricePerDay=30.0, hasGear=true, engineCapacity=150]
-The vehicle has been allotted: Car [brand=Ford, model=Focus, rentalPricePerDay=50.0, numberOfDoors=5, isAutomatic=false]
+✅ Yamaha R15 rented successfully.
+❌ Rent failed: Rent failed: No such vehicle found in the system.
 
----- List of Available Vehicles ----
+---- Available Vehicles After Renting ----
 Car [brand=Toyota, model=Corolla, rentalPricePerDay=45.5, numberOfDoors=4, isAutomatic=true]
+Car [brand=Ford, model=Focus, rentalPricePerDay=50.0, numberOfDoors=5, isAutomatic=false]
 Bike [brand=Honda, model=CBR, rentalPricePerDay=35.5, hasGear=false, engineCapacity=250]
 Car [brand=Chevrolet, model=Malibu, rentalPricePerDay=55.0, numberOfDoors=4, isAutomatic=true]
 Bike [brand=Suzuki, model=GSX, rentalPricePerDay=40.0, hasGear=true, engineCapacity=200]
-Car [brand=Tesla, model=3, rentalPricePerDay=150.0, numberOfDoors=4, isAutomatic=true]
----------------------------------------------------------------------------
+Car [brand=Nissan, model=Altima, rentalPricePerDay=55.0, numberOfDoors=4, isAutomatic=true]
 
 --- Returning Vehicles ---
-The vehicle has been returned: Bike [brand=Yamaha, model=R15, rentalPricePerDay=30.0, hasGear=true, engineCapacity=150]
+✅ Yamaha R15 returned successfully.
 
----- List of Available Vehicles ----
+---- Available Vehicles After Return ----
 Car [brand=Toyota, model=Corolla, rentalPricePerDay=45.5, numberOfDoors=4, isAutomatic=true]
 Bike [brand=Yamaha, model=R15, rentalPricePerDay=30.0, hasGear=true, engineCapacity=150]
+Car [brand=Ford, model=Focus, rentalPricePerDay=50.0, numberOfDoors=5, isAutomatic=false]
 Bike [brand=Honda, model=CBR, rentalPricePerDay=35.5, hasGear=false, engineCapacity=250]
 Car [brand=Chevrolet, model=Malibu, rentalPricePerDay=55.0, numberOfDoors=4, isAutomatic=true]
 Bike [brand=Suzuki, model=GSX, rentalPricePerDay=40.0, hasGear=true, engineCapacity=200]
-Car [brand=Tesla, model=3, rentalPricePerDay=150.0, numberOfDoors=4, isAutomatic=true]
----------------------------------------------------------------------------
+Car [brand=Nissan, model=Altima, rentalPricePerDay=55.0, numberOfDoors=4, isAutomatic=true]

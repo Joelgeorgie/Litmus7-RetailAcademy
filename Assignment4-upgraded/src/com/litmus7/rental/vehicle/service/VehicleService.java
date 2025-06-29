@@ -1,184 +1,203 @@
 package com.litmus7.rental.vehicle.service;
 
-import com.litmus7.rental.vehicle.dto.*;
+import com.litmus7.rental.vehicle.dao.VehicleFileDAO;
+import com.litmus7.rental.vehicle.dto.Vehicle;
+import com.litmus7.rental.vehicle.exception.VehicleFileAccessException;
+import com.litmus7.rental.vehicle.exception.VehicleServiceException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
- * The {@code VehicleService} class provides services to manage vehicles in the rental system.
- * It supports operations like loading vehicles from a file, adding vehicles, displaying
- * available/all vehicles, renting, returning, searching, and calculating total rental value.
- * 
- * <p>Each vehicle's availability is tracked using a map. Vehicles are stored in a list for easy iteration.</p>
- * 
+ * The {@code VehicleService} class provides business logic for managing vehicles
+ * in the rental system. It handles loading, adding, searching, renting, returning,
+ * and retrieving available vehicles.
+ *
  * <p><strong>Author:</strong> Joel Georgie</p>
  */
 public class VehicleService {
 
-	private ArrayList<Vehicle> vehiclesList = new ArrayList<>();
-	private HashMap<Vehicle, Boolean> vehicleAvailabilityMap = new HashMap<>();
+    private final ArrayList<Vehicle> vehiclesList = new ArrayList<>();
+    private final HashMap<Vehicle, Boolean> vehicleAvailabilityMap = new HashMap<>();
 
-	/**
-	 * Loads vehicle data from a file named {@code vehicles.txt}, parses it, and
-	 * adds each valid vehicle (Car/Bike) to the system.
-	 */
-	public void loadVehiclesFromFile() {
-		try (BufferedReader br = new BufferedReader(new FileReader("vehicles.txt"))) {
-			String line;
-			while ((line = br.readLine()) != null) {
-				String[] parts = line.split(",");
-				if (parts.length == 6) {
-					String type = parts[0].trim();
-					String brand = parts[1].trim();
-					String model = parts[2].trim();
-					double rentalPricePerDay = Double.parseDouble(parts[3].trim());
+    /**
+     * Loads vehicles from a file using the DAO and initializes their availability.
+     *
+     * @param filePath the path to the vehicle data file
+     * @return true if loading is successful
+     * @throws VehicleFileAccessException if file read fails or no vehicles are found
+     */
+    public boolean loadVehiclesFromFile(String filePath) throws VehicleFileAccessException {
+        List<Vehicle> loadedVehicles;
 
-					if (type.equalsIgnoreCase("car")) {
-						int numberOfDoors = Integer.parseInt(parts[4].trim());
-						boolean isAutomatic = Boolean.parseBoolean(parts[5].trim());
-						Car car = new Car(brand, model, rentalPricePerDay, numberOfDoors, isAutomatic);
-						vehiclesList.add(car);
-						vehicleAvailabilityMap.put(car, true);
+        try {
+            loadedVehicles = VehicleFileDAO.loadVehicles(filePath);
+        } 
+        catch (Exception e) 
+        {
+            throw new VehicleFileAccessException("Failed to load vehicles from file: " + filePath, e);
+        }
 
-					} else if (type.equalsIgnoreCase("bike")) {
-						boolean hasGear = Boolean.parseBoolean(parts[4].trim());
-						int engineCapacity = Integer.parseInt(parts[5].trim());
-						Bike bike = new Bike(brand, model, rentalPricePerDay, hasGear, engineCapacity);
-						vehiclesList.add(bike);
-						vehicleAvailabilityMap.put(bike, true);
-					}
-				} else {
-					System.out.println("Skipping invalid line: " + line);
-				}
-			}
-		} catch (IOException e) {
-			System.out.println("Error reading vehicle file: " + e.getMessage());
-		}
-	}
+        if (loadedVehicles == null || loadedVehicles.isEmpty()) {
+            throw new VehicleFileAccessException("Vehicle data file is empty or corrupt.");
+        }
 
+        for (Vehicle vehicle : loadedVehicles) {
+            vehiclesList.add(vehicle);
+            vehicleAvailabilityMap.put(vehicle, true);
+        }
 
-	/**
-	 * Displays all vehicles in the system.
-	 */
-	public void displayVehicles() {
-		System.out.println("\n---- List of Vehicles ----");
-		for (Vehicle vehicle : vehiclesList) {
-			System.out.println(vehicle);
-		}
-		System.out.println("---------------------------------------------------------------------------\n");
-	}
+        return true;
+    }
 
-	/**
-	 * Prompts the user to input a new vehicle (Car or Bike) and adds it to the system.
-	 */
-	public void addAVehicle() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("Enter the type of vehicle (Car/Bike): ");
-		String vehicleType = scanner.next();
+    /**
+     * Returns all vehicles currently in the system.
+     *
+     * @return list of all vehicles
+     */
+    public ArrayList<Vehicle> getAllVehicles() {
+        return vehiclesList;
+    }
 
-		if (vehicleType.equalsIgnoreCase("Car")) {
-			Car car = new Car();
-			car.inputDetails();
-			vehiclesList.add(car);
-			vehicleAvailabilityMap.put(car, true);
+    /**
+     * Adds a new vehicle to the system and marks it as available.
+     *
+     * @param vehicle the vehicle to add
+     * @return confirmation message
+     * @throws VehicleServiceException if the vehicle is null
+     */
+    public String addAVehicle(Vehicle vehicle) throws VehicleServiceException {
+        if (vehicle == null) {
+            throw new VehicleServiceException("Vehicle object is null.");
+        }
 
-		} else if (vehicleType.equalsIgnoreCase("Bike")) {
-			Bike bike = new Bike();
-			bike.inputDetails();
-			vehiclesList.add(bike);
-			vehicleAvailabilityMap.put(bike, true);
+        vehiclesList.add(vehicle);
+        vehicleAvailabilityMap.put(vehicle, true);
 
-		} else {
-			System.out.println("Invalid vehicle type.");
-		}
-	}
+        return "Vehicle added successfully: " + vehicle;
+    }
 
-	/**
-	 * Searches for vehicles by brand or model (case-insensitive) and displays matches.
-	 *
-	 * @param query the search term to match against brand or model
-	 */
-	public void searchVehicles(String query) {
-		query = query.toLowerCase();
-		for (Vehicle vehicle : vehiclesList) {
-			if (vehicle.getBrand().toLowerCase().contains(query) || vehicle.getModel().toLowerCase().contains(query)) {
-				System.out.println(vehicle);
-			}
-		}
-	}
+    /**
+     * Searches for vehicles matching the brand or model name.
+     *
+     * @param query brand or model keyword
+     * @return list of matched vehicles
+     * @throws VehicleServiceException if query is null or empty
+     */
+    public ArrayList<Vehicle> searchVehicles(String query) throws VehicleServiceException {
+        if (query == null || query.isBlank()) {
+            throw new VehicleServiceException("Search query cannot be null or blank.");
+        }
 
-	/**
-	 * Calculates and returns the total rental price of all vehicles in the system.
-	 *
-	 * @return total rental price per day of all vehicles
-	 */
-	public double totalRentalPrice() {
-		double total = 0;
-		for (Vehicle vehicle : vehiclesList) {
-			total += vehicle.getRentalPricePerDay();
-		}
-		return total;
-	}
+        query = query.toLowerCase();
+        ArrayList<Vehicle> matchedVehicles = new ArrayList<>();
 
-	/**
-	 * Rents a vehicle by brand and model if it is currently available.
-	 *
-	 * @param brand the brand of the vehicle
-	 * @param model the model of the vehicle
-	 */
-	public void rentVehicle(String brand, String model) {
-		brand = brand.toLowerCase();
-		model = model.toLowerCase();
+        for (Vehicle vehicle : vehiclesList) {
+            if (vehicle.getBrand().toLowerCase().contains(query)
+                    || vehicle.getModel().toLowerCase().contains(query)) {
+                matchedVehicles.add(vehicle);
+            }
+        }
 
-		for (Vehicle vehicle : vehiclesList) {
-			if (vehicle.getBrand().toLowerCase().contains(brand)
-					&& vehicle.getModel().toLowerCase().contains(model)
-					&& vehicleAvailabilityMap.getOrDefault(vehicle, false)) {
+        return matchedVehicles;
+    }
 
-				vehicleAvailabilityMap.replace(vehicle, false);
-				System.out.println("The vehicle has been allotted: " + vehicle);
-				return;
-			}
-		}
-		System.out.println("This vehicle is not available.");
-	}
+    /**
+     * Calculates the total rental price for all vehicles in the system.
+     *
+     * @return total price
+     */
+    public double totalRentalPrice() {
+        double total = 0;
+        for (Vehicle vehicle : vehiclesList) {
+            total += vehicle.getRentalPricePerDay();
+        }
+        return total;
+    }
 
-	/**
-	 * Returns a rented vehicle back to the system and marks it as available.
-	 *
-	 * @param brand the brand of the vehicle
-	 * @param model the model of the vehicle
-	 */
-	public void returnVehicle(String brand, String model) {
-		brand = brand.toLowerCase();
-		model = model.toLowerCase();
+    /**
+     * Marks a vehicle as rented, if it exists and is available.
+     *
+     * @param brand the brand to rent
+     * @param model the model to rent
+     * @return success message
+     * @throws VehicleServiceException if input is invalid, vehicle not found, or unavailable
+     */
+    public String rentVehicle(String brand, String model) throws VehicleServiceException {
+        if (brand == null || model == null || brand.isBlank() || model.isBlank()) {
+            throw new VehicleServiceException("Brand and model must not be null or blank.");
+        }
 
-		for (Vehicle vehicle : vehiclesList) {
-			if (vehicle.getBrand().toLowerCase().contains(brand)
-					&& vehicle.getModel().toLowerCase().contains(model)
-					&& !vehicleAvailabilityMap.get(vehicle)) {
+        brand = brand.toLowerCase();
+        model = model.toLowerCase();
 
-				vehicleAvailabilityMap.replace(vehicle, true);
-				System.out.println("The vehicle has been returned: " + vehicle);
-				return;
-			}
-		}
-		System.out.println("This vehicle cannot be returned.");
-	}
+        for (Vehicle vehicle : vehiclesList) {
+            if (vehicle.getBrand().toLowerCase().contains(brand)
+                    && vehicle.getModel().toLowerCase().contains(model)) {
 
-	/**
-	 * Displays only the vehicles that are currently available for rent.
-	 */
-	public void displayAvailableVehicles() {
-		System.out.println("\n---- List of Available Vehicles ----");
-		for (Vehicle vehicle : vehiclesList) {
-			if (vehicleAvailabilityMap.getOrDefault(vehicle, false)) {
-				System.out.println(vehicle);
-			}
-		}
-		System.out.println("---------------------------------------------------------------------------\n");
-	}
+                if (vehicleAvailabilityMap.getOrDefault(vehicle, false)) {
+                    vehicleAvailabilityMap.put(vehicle, false);
+                    return "Vehicle rented successfully: " + vehicle;
+                } 
+                else 
+                {
+                    throw new VehicleServiceException("Vehicle is currently not available.");
+                }
+            }
+        }
+
+        throw new VehicleServiceException("No such vehicle found in the system.");
+    }
+
+    /**
+     * Marks a rented vehicle as returned.
+     *
+     * @param brand the brand to return
+     * @param model the model to return
+     * @return success message
+     * @throws VehicleServiceException if vehicle is not found or not rented
+     */
+    public String returnVehicle(String brand, String model) throws VehicleServiceException {
+        if (brand == null || model == null || brand.isBlank() || model.isBlank()) {
+            throw new VehicleServiceException("Brand and model must not be null or blank.");
+        }
+
+        brand = brand.toLowerCase();
+        model = model.toLowerCase();
+
+        for (Vehicle vehicle : vehiclesList) {
+            if (vehicle.getBrand().toLowerCase().contains(brand)
+                    && vehicle.getModel().toLowerCase().contains(model)) {
+
+                if (!vehicleAvailabilityMap.getOrDefault(vehicle, true)) {
+                    vehicleAvailabilityMap.put(vehicle, true);
+                    return "Vehicle returned successfully: " + vehicle;
+                } 
+                else 
+                {
+                    throw new VehicleServiceException("Vehicle is already available (not rented).");
+                }
+            }
+        }
+
+        throw new VehicleServiceException("No such vehicle found in the system.");
+    }
+
+    /**
+     * Returns list of all available vehicles.
+     *
+     * @return list of available vehicles
+     */
+    public ArrayList<Vehicle> getAvailableVehicles() {
+        ArrayList<Vehicle> availableVehicles = new ArrayList<>();
+
+        for (Vehicle vehicle : vehiclesList) {
+            if (vehicleAvailabilityMap.getOrDefault(vehicle, false)) {
+                availableVehicles.add(vehicle);
+            }
+        }
+
+        return availableVehicles;
+    }
 }

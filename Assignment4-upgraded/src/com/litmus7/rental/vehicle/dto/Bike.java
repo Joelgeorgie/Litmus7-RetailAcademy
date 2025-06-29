@@ -6,10 +6,6 @@ import java.util.Scanner;
  * The {@code Bike} class extends the {@link Vehicle} class and represents a
  * bike with additional attributes such as whether it has gears and its engine
  * capacity.
- * <p>
- * It overrides methods to input and display bike-specific details in addition
- * to those inherited from the {@code Vehicle} class.
- * </p>
  * 
  * <p><strong>Author:</strong> Joel Georgie</p>
  */
@@ -49,35 +45,7 @@ public class Bike extends Vehicle {
 		this.engineCapacity = engineCapacity;
 	}
 
-	/**
-	 * Prompts the user to input bike-specific details such as gear availability
-	 * and engine capacity. Also invokes {@code inputDetails()} from the superclass
-	 * to input base vehicle details.
-	 */
-	@Override
-	public void inputDetails() {
-		super.inputDetails();
-		Scanner scanner = new Scanner(System.in);
-
-		System.out.print("Does it have gears (true/false)? ");
-		this.hasGear = scanner.nextBoolean();
-
-		System.out.print("Enter engine capacity (cc): ");
-		this.engineCapacity = scanner.nextInt();
-
-		// scanner not closed to avoid closing System.in
-	}
-
-	/**
-	 * Displays the bike’s complete details including inherited vehicle properties,
-	 * and bike-specific attributes such as gear availability and engine capacity.
-	 */
-	@Override
-	public void displayDetails() {
-		super.displayDetails();
-		System.out.println("Has Gear: " + hasGear);
-		System.out.println("Engine Capacity: " + engineCapacity + " cc");
-	}
+	
 
 	/**
 	 * Returns a string representation of the bike object including both
