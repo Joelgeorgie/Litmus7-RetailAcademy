@@ -1,0 +1,6 @@
+Enter customer type (1- Regular, 2- Premium, 3- Wholesale): 2
+Enter total purchase amount: ₹6200
+Customer Type: PremiumCustomer
+Original Amount: 6200.0
+Discount Applied: 620.0
+Final Payable Amount: 5580.0

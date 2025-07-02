@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.litmus7.retail.discount.customermodels"},{"l":"com.litmus7.retail.discount.interfaces"},{"l":"com.litmus7.retail.discount.ui"}];updateSearchResults();
