@@ -1,40 +1,20 @@
 package com.litmus7.rental.vehicle.dto;
 
-import java.util.List;
-
 /**
- * The {@code Response} class is a generic response wrapper used by the controller
- * to encapsulate results, status codes, messages, vehicle data, and total price.
- * <p>
- * This allows uniform handling of both successful and error responses.
- * </p>
+ * The {@code Response<T>} class is a generic response wrapper used by the controller
+ * to encapsulate results, status codes, messages, and arbitrary data.
+ *
+ * <p>This promotes uniform handling of successful and error responses.</p>
+ *
+ * @param <T> the type of the data included in the response
  * 
  * <p><strong>Author:</strong> Joel Georgie</p>
  */
-public class Response {
+public class Response<T> {
 
     private int statusCode;
     private String errorMessage;
-    private List<Vehicle> vehicles;
-    private double totalPrice;
-
-    /**
-     * Gets the total rental price included in the response.
-     *
-     * @return the total price of all vehicles
-     */
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    /**
-     * Sets the total rental price in the response.
-     *
-     * @param totalPrice total price value to set
-     */
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
+    private T data;
 
     /**
      * Gets the status code of the response.
@@ -73,21 +53,20 @@ public class Response {
     }
 
     /**
-     * Gets the list of vehicles included in the response.
+     * Gets the data included in the response.
      *
-     * @return list of vehicles
+     * @return the response data
      */
-    public List<Vehicle> getVehicles() {
-        return vehicles;
+    public T getData() {
+        return data;
     }
 
     /**
-     * Sets the list of vehicles in the response.
+     * Sets the data for the response.
      *
-     * @param vehicles the list of vehicles to set
+     * @param data the data to include
      */
-    public void setVehicles(List<Vehicle> vehicles) {
-        this.vehicles = vehicles;
+    public void setData(T data) {
+        this.data = data;
     }
 }
-
